@@ -3,7 +3,7 @@ using System.Numerics;
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
 
-namespace SamplePlugin.Windows;
+namespace Ice_Box.Windows;
 
 public class ConfigWindow : Window, IDisposable
 {

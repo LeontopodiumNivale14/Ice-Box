@@ -2,7 +2,7 @@
 using Dalamud.Plugin;
 using System;
 
-namespace SamplePlugin;
+namespace Ice_Box;
 
 [Serializable]
 public class Configuration : IPluginConfiguration
