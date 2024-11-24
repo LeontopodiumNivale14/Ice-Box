@@ -1,58 +1,61 @@
 ﻿using System;
+using System.Drawing;
 using System.Numerics;
-using Dalamud.Interface.Internal;
+using System.Reflection;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
-using Dalamud.Plugin.Services;
+using ECommons.DalamudServices;
+using ECommons.SimpleGui;
 using ImGuiNET;
 
 namespace Ice_Box.Windows;
 
-public class MainWindow : Window, IDisposable
-{
-    private string GoatImagePath;
-    private Plugin Plugin;
+public class MainWindow : ConfigWindow, IDisposable
+{   
+    private const string LogoManifestResource = "Ice_Box.Data.Portrit.png";
+    private const uint SidebarWindowWidth = 203;
+    private Point logoSize = new(210, 203);
+    private const float LogoScale = 1f;
 
-    // We give this window a hidden ID using ##
-    // So that the user will see "My Amazing Window" as window title,
-    // but for ImGui the ID is "My Amazing Window##With a hidden ID"
-    public MainWindow(Plugin plugin, string goatImagePath)
-        : base("My Amazing Window##With a hidden ID", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
+    public MainWindow() {}
+    public void Dispose() { }
+
+    public static void SetWindowProperties()
     {
-        SizeConstraints = new WindowSizeConstraints
+        var width = SidebarWindowWidth;
+
+        EzConfigGui.Window.Size = new Vector2(width, 500);
+        EzConfigGui.Window.SizeConstraints = new()
         {
-            MinimumSize = new Vector2(375, 330),
-            MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
+            MinimumSize = new Vector2(width, 320),
+            MaximumSize = new Vector2(1920, 1080),
         };
 
-        GoatImagePath = goatImagePath;
-        Plugin = plugin;
-    }
+        EzConfigGui.Window.SizeCondition = ImGuiCond.Always;
 
-    public void Dispose() { }
+        EzConfigGui.Window.Flags |= ImGuiWindowFlags.AlwaysAutoResize;
+        EzConfigGui.Window.Flags |= ImGuiWindowFlags.NoSavedSettings;
+
+        EzConfigGui.Window.AllowClickthrough = false;
+        EzConfigGui.Window.AllowPinning = false;
+    }
 
     public override void Draw()
     {
-        ImGui.Text($"The random config bool is {Plugin.Configuration.SomePropertyToBeSavedAndWithADefault}");
-
-        if (ImGui.Button("Show Settings"))
+        if (Svc.Texture.GetFromManifestResource(Assembly.GetExecutingAssembly(), LogoManifestResource).TryGetWrap(out var logo, out var _))
         {
-            Plugin.ToggleConfigUI();
-        }
-
-        ImGui.Spacing();
-
-        ImGui.Text("Have a goat:");
-        var goatImage = Plugin.TextureProvider.GetFromFile(GoatImagePath).GetWrapOrDefault();
-        if (goatImage != null)
-        {
-            ImGuiHelpers.ScaledIndent(55f);
-            ImGui.Image(goatImage.ImGuiHandle, new Vector2(goatImage.Width, goatImage.Height));
-            ImGuiHelpers.ScaledIndent(-55f);
+            var maxWidth = 375 * 2 * 0.85f * ImGuiHelpers.GlobalScale;
+            var ratio = maxWidth / logoSize.X;
+            var scaledLogoSize = new Vector2(logoSize.X * LogoScale, logoSize.Y * LogoScale);
+            ImGui.Image(logo.ImGuiHandle, scaledLogoSize);
         }
         else
         {
             ImGui.Text("Image not found.");
         }
+        ImGui.Spacing();
+
+        // ImGui.TextColored(Example.enabled ? new Vector4(0.0f, 1.0f, 0.0f, 1.0f) : new Vector4(1.0f, 0.0f, 0.0f, 1.0f), $"Are we working: {(Example.enabled ? "Yes" : "No")}");
+
     }
 }

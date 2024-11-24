@@ -5,7 +5,7 @@ using System;
 namespace Ice_Box;
 
 [Serializable]
-public class Configuration : IPluginConfiguration
+public class Config : IPluginConfiguration
 {
     public int Version { get; set; } = 0;
 
