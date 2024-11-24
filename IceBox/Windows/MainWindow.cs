@@ -1,14 +1,8 @@
-﻿using System;
 using System.Drawing;
-using System.Numerics;
 using System.Reflection;
-using Dalamud.Interface.Utility;
-using Dalamud.Interface.Windowing;
-using ECommons.DalamudServices;
 using ECommons.SimpleGui;
-using ImGuiNET;
 
-namespace Ice_Box.Windows;
+namespace IceBox.Windows;
 
 public class MainWindow : ConfigWindow, IDisposable
 {   

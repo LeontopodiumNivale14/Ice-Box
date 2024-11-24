@@ -19,9 +19,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>false</Visible>
     </Content>
-  </ItemGroup>  
-
-  <ItemGroup>
-    <Folder Include="Scheduler\Tasks\" />
   </ItemGroup>
 </Project>

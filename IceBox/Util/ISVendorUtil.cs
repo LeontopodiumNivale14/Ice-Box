@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace Ice_Box.Util;
+namespace IceBox.Util;
 
 public class ISVendorUtil
 {

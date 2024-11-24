@@ -1,6 +1,6 @@
 using ECommons.Throttlers;
 
-namespace Ice_Box.Scheduler.Handlers
+namespace IceBox.Scheduler.Handlers
 {
     internal class GenericHandlers
     {

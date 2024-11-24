@@ -1,8 +1,8 @@
-﻿using Dalamud.Configuration;
+using Dalamud.Configuration;
 using Dalamud.Plugin;
 using System;
 
-namespace Ice_Box;
+namespace IceBox;
 
 [Serializable]
 public class Config : IPluginConfiguration

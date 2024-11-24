@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Numerics;
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
 
-namespace Ice_Box.Windows;
+namespace IceBox.Windows;
 
 public class ConfigWindow : Window, IDisposable
 {

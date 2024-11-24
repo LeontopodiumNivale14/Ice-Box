@@ -1,6 +1,6 @@
-﻿using Dalamud.Plugin;
+using Dalamud.Plugin;
 
-namespace Ice_Box
+namespace IceBox
 {
     internal class Service
     {

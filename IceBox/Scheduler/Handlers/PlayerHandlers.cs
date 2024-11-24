@@ -1,10 +1,10 @@
-﻿using Dalamud.Game.ClientState.Conditions;
+using Dalamud.Game.ClientState.Conditions;
 using ECommons.DalamudServices;
 using ECommons.GameHelpers;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using Lumina.Excel.Sheets;
 
-namespace Ice_Box.Scheduler.Handlers;
+namespace IceBox.Scheduler.Handlers;
 
 internal static unsafe class PlayerHandlers
 {

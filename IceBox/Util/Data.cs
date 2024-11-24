@@ -1,4 +1,4 @@
-﻿namespace Ice_Box.Util;
+namespace IceBox.Util;
 
 public static class Data
 {

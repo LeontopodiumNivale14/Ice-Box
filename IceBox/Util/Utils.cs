@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using Dalamud.Game.ClientState.Conditions;
 using ECommons.DalamudServices;
 using ECommons.GameHelpers;
 using FFXIVClientStructs.FFXIV.Client.Game;
 
-namespace Ice_Box.Util;
+namespace IceBox.Util;
 
 public static class Utils
 {
