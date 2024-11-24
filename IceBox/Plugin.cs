@@ -13,7 +13,9 @@ namespace IceBox;
 
 public sealed class Plugin : IDalamudPlugin
 {
-    public string Name => "IceBox";
+    public string Name => "Plugon";
+    internal static Plugin P;
+    internal static Config C => P.Config;
     internal TaskManager TaskManager;
     
     [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
