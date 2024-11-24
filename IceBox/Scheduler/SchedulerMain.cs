@@ -1,4 +1,4 @@
-using IceBox;
+using IceBox.Scheduler.Tasks;
 
 namespace IceBox.Scheduler;
 
@@ -20,7 +20,7 @@ internal static unsafe class SchedulerMain
             / Need to code this in a way to make sure that it performs each task sequentially... but that's thoughts for later
             */
             
-            
+            TaskMount.Enqueue();
         }
     }
 }

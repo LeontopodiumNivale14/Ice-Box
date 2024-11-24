@@ -8,6 +8,7 @@
 global using static ECommons.GenericHelpers;
 global using static IceBox.Util.Utils;
 global using static IceBox.Util.Data;
+global using static IceBox.IceBox;
 global using IceBox.Scheduler;
 global using Dalamud.Interface;
 global using Dalamud.Interface.Colors;
