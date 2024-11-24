@@ -11,9 +11,12 @@ using IceBox.Windows;
 
 namespace IceBox;
 
+// note to myself whenever I look back at this, P.TaskManager... came from this.
+// "Plugin" Or whatever the name of the plugin is, is the name RIGHT BELOW THIS. 
+// So if you change it to SushiRoll, it would be Name "SushiRoll" -> internal static SushiRoll P.
 public sealed class Plugin : IDalamudPlugin
 {
-    public string Name => "Plugon";
+    public string Name => "Plugin";
     internal static Plugin P;
     internal static Config C => P.Config;
     internal TaskManager TaskManager;
