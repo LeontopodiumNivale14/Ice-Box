@@ -1,13 +1,6 @@
-using Dalamud.Game.Command;
-using Dalamud.IoC;
-using Dalamud.Plugin;
-using System.IO;
-using Dalamud.Interface.Windowing;
-using Dalamud.Plugin.Services;
-using ECommons.Automation.NeoTaskManager;
-using ECommons.DalamudServices;
-using IceBox.Scheduler;
 using IceBox.Windows;
+using ECommons.SimpleGui;
+using ECommons.Automation.NeoTaskManager;
 
 namespace IceBox;
 
@@ -16,48 +9,19 @@ namespace IceBox;
 // So if you change it to SushiRoll, it would be Name "SushiRoll" -> internal static SushiRoll P.
 public sealed class IceBox : IDalamudPlugin
 {
-    public string Name => "Plugin";
-    internal static IceBox P;
-    internal static Config C => P.Config;
-    internal TaskManager TaskManager;
-    
-    [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
-    [PluginService] internal static ITextureProvider TextureProvider { get; private set; } = null!;
-    [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
-
+    public static TaskManager TaskManagerIce;
     private const string CommandName = "/pmycommand";
-
-    public Config Config { get; init; }
-
-    public readonly WindowSystem WindowSystem = new("Ice Box");
-    private ConfigWindow ConfigWindow { get; init; }
-    private MainWindow MainWindow { get; init; }
-
-    public IceBox(TaskManager taskManager)
+    public IceBox(IDalamudPluginInterface pluginInterface)
     {
-        TaskManager = taskManager;
-        Config = PluginInterface.GetPluginConfig() as Config ?? new Config();
-
-        // you might normally want to embed resources and load them from the manifest stream
-
-        ConfigWindow = new ConfigWindow(this);
-
-        WindowSystem.AddWindow(ConfigWindow);
-        WindowSystem.AddWindow(MainWindow);
-
-        CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
-        {
-            HelpMessage = "A useful message to display in /xlhelp"
-        });
-
-        PluginInterface.UiBuilder.Draw += DrawUi;
-
-        // This adds a button to the plugin installer entry of this plugin which allows
-        // to toggle the display status of the configuration ui
-        PluginInterface.UiBuilder.OpenConfigUi += ToggleConfigUi;
-
-        // Adds another button that is doing the same but for the main ui of the plugin
-        PluginInterface.UiBuilder.OpenMainUi += ToggleMainUi;
+        pluginInterface.Create<Service>();
+        Service.IceBox = this;
+        Service.Configuration = pluginInterface.GetPluginConfig() as Config ?? new Config();
+        ECommonsMain.Init(pluginInterface, this);
+        TaskManagerIce = new();
+        EzConfigGui.Init(new MainWindow().Draw);
+        EzConfigGui.WindowSystem.AddWindow(new SettingsWindow());
+        EzCmd.Add(CommandName, OnCommand, "Open Interface");
+        Svc.Framework.Update += Tick;
     }
 
     // this is to (what I'm assume) constantly have the plugin check for any actions. 
@@ -72,22 +36,12 @@ public sealed class IceBox : IDalamudPlugin
 
     public void Dispose()
     {
-        WindowSystem.RemoveAllWindows();
-
-        ConfigWindow.Dispose();
-        MainWindow.Dispose();
-
-        CommandManager.RemoveHandler(CommandName);
+        Safe(() => Svc.Framework.Update -= Tick);
+        ECommonsMain.Dispose();
     }
 
     private void OnCommand(string command, string args)
     {
-        // in response to the slash command, just toggle the display status of our main ui
-        ToggleMainUi();
+        EzConfigGui.Window.IsOpen = !EzConfigGui.Window.IsOpen;
     }
-
-    private void DrawUi() => WindowSystem.Draw();
-
-    public void ToggleConfigUi() => ConfigWindow.Toggle();
-    public void ToggleMainUi() => MainWindow.Toggle();
 }
