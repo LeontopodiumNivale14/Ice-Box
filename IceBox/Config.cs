@@ -13,5 +13,8 @@ public class Config : IPluginConfiguration
     public bool SomePropertyToBeSavedAndWithADefault { get; set; } = true;
 
     // the below exist just to make saving less cumbersome
-    internal void Save() => Svc.PluginInterface.SavePluginConfig(this);
+    public void Save()
+    {
+        IceBox.PluginInterface.SavePluginConfig(this);
+    }
 }

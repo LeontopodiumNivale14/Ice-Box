@@ -1,4 +1,4 @@
-using IceBox.Scheduler.Handlers;
+﻿using IceBox.Scheduler.Handlers;
 
 namespace IceBox.Scheduler.Tasks;
 
@@ -6,6 +6,6 @@ public class TaskMount
 {
     internal static void Enqueue()
     {
-        TaskManagerIce.Enqueue(PlayerHandlers.PlayerMounted);
+        P.TaskManager.Enqueue(PlayerHandlers.PlayerMounted);
     }
 }

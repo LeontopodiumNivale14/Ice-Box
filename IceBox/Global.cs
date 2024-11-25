@@ -8,6 +8,7 @@
 global using static ECommons.GenericHelpers;
 global using static IceBox.Util.Utils;
 global using static IceBox.Util.Data;
+global using static IceBox.IceBox;
 global using IceBox.Scheduler;
 global using Dalamud.Interface;
 global using Dalamud.Interface.Colors;
@@ -28,7 +29,6 @@ global using System.Numerics;
 global using System.Runtime.InteropServices;
 global using System.Text;
 global using System.Threading.Tasks;
+global using static ECommons.GenericHelpers;
 global using Callback = ECommons.Automation.Callback;
 global using CSFramework = FFXIVClientStructs.FFXIV.Client.System.Framework.Framework;
-global using static IceBox.Service;
-global using static IceBox.Config;
